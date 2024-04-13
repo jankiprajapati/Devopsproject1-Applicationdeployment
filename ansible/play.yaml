@@ -1,0 +1,14 @@
+---
+- name: "play1-on master"
+  hosts: localhost
+  become: true
+  tasks:
+  - name: installing java and jenkins
+    script: master.sh
+
+- name: "play2-on nodes"
+  hosts: nodes
+  become: true
+  tasks:
+  - name: installing java and docker
+    script: nodes.sh
