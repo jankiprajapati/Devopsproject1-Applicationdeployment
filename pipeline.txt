@@ -1,0 +1,11 @@
+To Build
+sudo docker build -f $WORKSPACE/dockerfile -t app1:$BUILD_NUMBER $WORKSPACE
+
+For First Run
+sudo docker build -f $WORKSPACE/dockerfile -t app1:$BUILD_NUMBER $WORKSPACE
+sudo docker run -it -d -p 82:80 --name cont1 app1:$BUILD_NUMBER 
+
+Edit after first-run
+sudo docker rm -f cont1
+sudo docker build -f $WORKSPACE/dockerfile -t app1:$BUILD_NUMBER $WORKSPACE
+sudo docker run -it -d -p 82:80 --name cont1 app1:$BUILD_NUMBER 
