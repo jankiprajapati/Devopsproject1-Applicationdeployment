@@ -1,0 +1,44 @@
+Steps
+
+1. Terraform Apply The Infrastructure
+   -> This Deploys 2VPC with 1 public subnet in each
+   -> Launches 1-Instance in VPC-1 with Ansible installed
+   -> Launches 2-node-Instances in VPC-2 
+ 
+2. Connect to Master Instance
+   -> sudo su -
+   -> cd /etc/ansible/
+   -> ansible-config init --disabled > ansible.cfg         (to edit files inside /etc/ansible)
+   -> wget master.sh,nodes.sh, play.yaml, key.pem, myinv   (need to edit myinv)
+
+   -> ansible-playbook -i myinv  play.yaml --check
+   -> ansible-playbook -i myinv  play.yaml
+
+3. Jenkins
+  -> cat /var/lib/jenkins/secrets/initialAdminPassword
+  -> connect to jenkins page (ip:8080)
+  -> login
+  -> manage jenkin,tools,git path(/usr/bin/git)
+
+4. Create Nodes
+  -> managejenkins,nodes,path(/home/ubuntu/jenkins)
+  -> host (ip of node1 and node2)
+  -> username(ubuntu) and key (enter)
+  -> non-veryfing verification stratergy
+
+5. Freestyle Project for only build
+   -> restrict where to run (node1)
+   -> git url and /develop
+   -> github hook trigger
+   -> pipeline.txt for execute-shell
+
+6. Freestyle Project to Run for Production
+   -> restrict where to run (node2)
+   -> git url and /main
+   -> github hook trigger
+   -> pipeline.txt for execute-shell
+
+7. Finally add github hook trigger
+   -> repo, webhooks, http://masterip:8080/github-webhook/
+
+8. Map the IP to domain-name
